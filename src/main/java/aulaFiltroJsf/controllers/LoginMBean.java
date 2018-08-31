@@ -1,7 +1,9 @@
+package aulaFiltroJsf.controllers;
 
-
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 @SessionScoped
@@ -11,7 +13,15 @@ public class LoginMBean {
 	private String senha = "";
 	
 	public String login(){
-		return "home?faces-redirect=true";
+		if(usuario.equals("adm")){
+			return "admin/index.xhtml?faces-redirect=true";
+		}else if(usuario.equals("aluno")){
+			return "aluno/index.xhtml?faces-redirect=true";
+		}else{
+			FacesContext.getCurrentInstance().addMessage(null, 
+					new FacesMessage("Usuario e/ou senha incorretos"));
+			return null;
+		}
 	}
 	
 	public String getUsuario() {
